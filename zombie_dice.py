@@ -2,10 +2,8 @@
 
 import random
 
-# define the dice and their sides
-gdie = {0: "brain", 1: "brain", 2: "brain", 3: "shotgun", 4: "feet", 5: "feet"}
-ydie = {0: "brain", 1: "brain", 2: "shotgun", 3: "shotgun", 4: "feet", 5: "feet"}
-rdie = {0: "brain", 1: "shotgun", 2: "shotgun", 3: "shotgun", 4: "feet", 5: "feet"}
+# define the dice and their sides (nested dictionaries for memory optimization)
+dies = {"gdie": {0: "brain", 1: "brain", 2: "brain", 3: "shotgun", 4: "feet", 5: "feet"}, "ydie": {0: "brain", 1: "brain", 2: "shotgun", 3: "shotgun", 4: "feet", 5: "feet"}, "rdie": {0: "brain", 1: "shotgun", 2: "shotgun", 3: "shotgun", 4: "feet", 5: "feet"}}
 
 
 #pick die color
@@ -29,11 +27,11 @@ def roll_die():
 	die = pick_color()
 	side = pick_side()
 	if die == "green":
-		return (die, gdie[side])
+		return (die, dies["gdie"][side])
 	elif die == "yellow":
-		return (die, ydie[side])
+		return (die, dies["ydie"][side])
 	elif die == "red":
-		return (die, ydie[side])
+		return (die, dies["ydie"][side])
 
 #track the rolls
 hit_count = 0
@@ -63,17 +61,25 @@ print
 print
 print "Let's go!"
 #accept input from player to determine readiness, then enter a loop while hits are less than three, or if player decides to stop
-play = raw_input("Are you ready to start? y or n: ")
-if play == "n":
-	print "Ok, thanks for playing!"
+play = str.lower(raw_input("Are you ready to start? y or n: "))
 
-while play == "y":
-	if hit_count < 3:
-		turn()
-		if hit_count < 3:	
-			play = raw_input("Do you want to roll again? y or n: ")
-		else:
-			print "You've been hit 3 times! Your turn is over!"
-	                play = "n"
-        	        break
+if play not in "yn":
+	print "Sorry, response must be a 'y' or 'n'"
+else:
+	if play == "n":
+		print "Ok, thanks for playing!"
+
+	while play == "y":
+		if hit_count < 3:
+			turn()
+			if hit_count < 3:	
+				play = str.lower(raw_input("Do you want to roll again? y or n: "))
+				if play not in "yn":
+        				print "Sorry, response must be a 'y' or 'n'"
+				else:
+					print "Carry on!"
+			else:
+				print "You've been hit 3 times! Your turn is over!"
+	                	play = "n"
+        	        	break
 
