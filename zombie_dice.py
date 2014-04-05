@@ -63,8 +63,9 @@ print "Let's go!"
 #accept input from player to determine readiness, then enter a loop while hits are less than three, or if player decides to stop
 play = str.lower(raw_input("Are you ready to start? y or n: "))
 
-if play not in "yn":
+while play not in "yn":
 	print "Sorry, response must be a 'y' or 'n'"
+	play = str.lower(raw_input("Are you ready to start? y or n: "))
 else:
 	if play == "n":
 		print "Ok, thanks for playing!"
@@ -74,8 +75,9 @@ else:
 			turn()
 			if hit_count < 3:	
 				play = str.lower(raw_input("Do you want to roll again? y or n: "))
-				if play not in "yn":
+				while play not in "yn":
         				print "Sorry, response must be a 'y' or 'n'"
+					play = str.lower(raw_input("Are you ready to start? y or n: "))
 				else:
 					print "Carry on!"
 			else:
