@@ -71,17 +71,18 @@ else:
 		print "Ok, thanks for playing!"
 
 	while play == "y":
-		if hit_count < 3:
-			turn()
-			if hit_count < 3:	
+		turn()
+		if hit_count < 3:	
+			play = str.lower(raw_input("Do you want to roll again? y or n: "))
+			while play not in "yn":
+        			print "Sorry, response must be a 'y' or 'n'"
 				play = str.lower(raw_input("Do you want to roll again? y or n: "))
-				while play not in "yn":
-        				print "Sorry, response must be a 'y' or 'n'"
-					play = str.lower(raw_input("Are you ready to start? y or n: "))
-				else:
-					print "Carry on!"
 			else:
-				print "You've been hit 3 times! Your turn is over!"
-	                	play = "n"
-        	        	break
+				if play == "y":
+					print "Rolling again:"
+				else:
+					print "You have ended your turn. Next player please!"
+		else:
+			print "You've been hit 3 times! Your turn is over!"
+	       		play = "n"
 
